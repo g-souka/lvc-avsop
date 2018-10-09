@@ -1,0 +1,37 @@
+{
+	"steps": [
+		{
+			"name": "gcr.io/cloud-builders/npm",
+			"args": [
+				"install"
+			]
+		},
+		{
+			"name": "gcr.io/cloud-builders/npm",
+			"args": [
+				"build"
+			]
+		},
+		{
+			"name": "eu.gcr.io/clients-196613/cloud_builder-firebase",
+			"args": [
+				"target:apply",
+				"hosting",
+				"app",
+				"${_SITE_NAME}",
+				"--project",
+				"$PROJECT_ID"
+			]
+		},
+		{
+			"name": "eu.gcr.io/clients-196613/cloud_builder-firebase",
+			"args": [
+				"deploy",
+				"--token",
+				"${_FIREBASE_TOKEN}",
+				"--project",
+				"$PROJECT_ID"
+			]
+		}
+	]
+}
